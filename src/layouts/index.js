@@ -1,20 +1,44 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
+import styled from 'styled-components';
+import Navbar from '../components/navbar'
+import './index.css'
 
-import Navbar from '../components/Navbar'
-import './all.sass'
+const SiteContent = styled.div`
+  position: relative;
+  margin-left: 100px;
+`
 
-const TemplateWrapper = ({ children }) => (
+const Layout = ({ children, data }) => (
   <div>
-    <Helmet title="Home | Gatsby + Netlify CMS" />
+    <Helmet
+      title={data.site.siteMetadata.title}
+      meta={[
+        { name: 'description', content: 'Sample' },
+        { name: 'keywords', content: 'sample, something' },
+      ]}
+    />
+
     <Navbar />
-    <div>{children()}</div>
+    <SiteContent>
+      {children()}
+    </SiteContent>
   </div>
 )
 
-TemplateWrapper.propTypes = {
+Layout.propTypes = {
   children: PropTypes.func,
 }
 
-export default TemplateWrapper
+export default Layout
+
+export const query = graphql`
+  query SiteTitleQuery {
+    site {
+      siteMetadata {
+        title
+      }
+    }
+  }
+`

@@ -1,19 +1,29 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import React, { Component } from 'react'
+import styled from 'styled-components';
 
-export const HTMLContent = ({ content, className }) => (
-  <div className={className} dangerouslySetInnerHTML={{ __html: content }} />
-)
+const Container = styled.div`
+  display: flex;
+`;
+const Left = styled.div`
+  flex: 6;
+  position: relative;
+`;
+const Right = styled.div`
+  flex: 4;
+  position: relative;
+`;
 
-const Content = ({ content, className }) => (
-  <div className={className}>{content}</div>
-)
-
-Content.propTypes = {
-  content: PropTypes.string,
-  className: PropTypes.string,
+export default class content extends Component {
+  render() {
+    return (
+      <Container>
+        <Left>
+          {this.props.left}
+        </Left>
+        <Right>
+          {this.props.right}
+        </Right>
+      </Container>
+    )
+  }
 }
-
-HTMLContent.propTypes = Content.propTypes
-
-export default Content

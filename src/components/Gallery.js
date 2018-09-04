@@ -16,7 +16,8 @@ const Image = styled.div`
   height: 100%;
   width: 60%;
   background-image: url(${({src}) => src});
-  background-size: 100%;
+  background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
 `
 
@@ -24,7 +25,7 @@ export default class Gallery extends Component {
   render() {
     return (
       <GalleryContainer>
-        <Image src={'https://picsum.photos/800/1080/?image=767'} />
+        <Image src={this.props.image} />
       </GalleryContainer>
     )
   }

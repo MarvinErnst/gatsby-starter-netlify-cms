@@ -1,6 +1,14 @@
 import React from 'react'
 import Link from 'gatsby-link'
 import styled from 'styled-components';
+import {
+  AnimatedValue,
+  animated,
+  Spring,
+  interpolate,
+  controller as spring
+} from 'react-spring';
+
 import { H1, mainColor } from '../styles/generals';
 
 const HeaderContainer = styled.header`
@@ -46,9 +54,15 @@ const Line = styled.div`
 
 const Header = ({ title, subtitle, style }) => (
   <HeaderContainer style={style}>
-    <H1>
-      {title}
-    </H1>
+
+    <Spring delay={800} from={{ opacity: 0, y: '-100px'}} to={{ opacity: 1, y:'0' }}>
+      {({opacity, y}) => (
+        <H1 style={{ transform: `translate3d(0, ${y},0)`, opacity}}>
+        {title}
+      </H1>
+      )}
+    </Spring>
+
     <SublineContainer>
       <div style={{
         display: 'inline-block',
@@ -60,7 +74,9 @@ const Header = ({ title, subtitle, style }) => (
       <Subline >{subtitle}</Subline>
     </SublineContainer>
     <LineContainer>
-      <Line width="100%" />
+      <Spring from={{width: '0%'}} to={{width:'100%' }}>
+        {({width}) => <Line width={width} />}
+      </Spring>
     </LineContainer>
   </HeaderContainer>
 

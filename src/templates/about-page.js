@@ -57,30 +57,30 @@ class SecondPage extends React.Component {
   }
 
   render() {
-    const { title, subtitle, text } = this.state;
+    const {frontmatter, html} = this.props.data.markdownRemark;
+    const { title, subtitle, image } = frontmatter;
 
     return (
       <div>
-          <Spring config={animationSpeed} delay={100} from={{ opacity: 1, x: '0%'}} to={{ opacity: 0, x:'-100%' }}>
+          <Spring config={animationSpeed} delay={400} from={{ opacity: 1, x: '0%'}} to={{ opacity: 1, x:'-100%' }}>
             {({opacity,x}) =>  <animated.div className="hider" style={{transform: `translate3d(${x}, 0,0)` }} />}
+          </Spring>
+          <Spring config={animationSpeed} delay={400} from={{ opacity: 0.75, x: '0%'}} to={{ opacity: 0, x:'-40%' }}>
+            {({opacity,x}) =>  <animated.div className="hider" style={{opacity:  opacity,transform: `translate3d(${x}, 0,0)` }} />}
           </Spring>
         <Content
           left={
             (
               <Fragment>
-                <Spring config={animationSpeed} delay={200} from={{ opacity: 0, y: '-100px'}} to={{ opacity: 1, y:'0' }}>
-                {({opacity, y}) => <Header style={{transform: `translate3d(0, ${y},0)`, opacity}} title={title} subtitle={subtitle} />}
+              <Header title={title} subtitle={subtitle} />
+                <Spring config={animationSpeed} delay={300} from={{ opacity: 0, y: '100px'}} to={{ opacity: 1, y:'0' }}>
+                   {({opacity, y}) => <Main style={{transform: `translate3d(0, ${y},0)`, opacity}} dangerouslySetInnerHTML={{ __html: html }}/>}
                 </Spring>
-
-
-                 <Spring config={animationSpeed} delay={300} from={{ opacity: 0, y: '100px'}} to={{ opacity: 1, y:'0' }}>
-                   {({opacity, y}) => <Main style={{transform: `translate3d(0, ${y},0)`, opacity}} dangerouslySetInnerHTML={{ __html: text }}/>}
-                 </Spring>
               </Fragment>
             )
           }
           right={
-            <Gallery />
+            <Gallery image={image}/>
           }
         />
         <p>

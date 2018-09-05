@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-
+export const mainColor = '#006873';
 export const H1 = styled.h1`
   margin-bottom: 0;
   line-height: 44px;
@@ -35,4 +35,12 @@ export const Main = styled.main`
   padding: 5vw 12vw 2vw 6vw;
 `;
 
-export const mainColor = '#8a6b0c'
+export const Line = styled.div`
+  width: ${props => props.width};
+  transition: width 2000ms ease 0s;
+  position: absolute;
+  height: 1px;
+  top: ${props => props.top || 0}
+  background-color: ${mainColor}
+`
+

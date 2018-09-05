@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
 import NavItem from './navbar-item';
+import {mainColor} from '../styles/generals'
+import Logo from '../components/logo';
 
 const StyledNavbar = styled.div`
   position: fixed;
@@ -39,10 +41,15 @@ const LogoLink = styled.a`
   width: 100%;
   padding-top: 52px;
   padding-bottom: 60px;
-  padding-left: 5px;
+  padding-left: 4px;
   font-size: 2.8em;
   font-weight: 700;
   text-align: center;
+
+
+  svg {
+    width: 64px
+  }
 `;
 
 
@@ -51,7 +58,7 @@ export default class Navbar extends Component {
     return (
       <StyledNavbar>
         <NavContainer>
-          <LogoLink>B.</LogoLink>
+          <LogoLink><Logo color={mainColor} /></LogoLink>
           <Nav>
             <NavItem href="/about" >About</NavItem>
             <NavItem href="/contact" >Contact</NavItem>

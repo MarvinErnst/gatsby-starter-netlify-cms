@@ -31,6 +31,9 @@ collections:
           - {label: "Subtitle", name: "subtitle", widget: "string"}
           - {label: "Body", name: "body", widget: "markdown"}
           - {label: "Image", name: image, widget: "image"}
+          - {label: "Image 2", name: image2, widget: "image"}
+          - {label: "Image 3", name: image3, widget: "image"}
+
 
       - file: "src/pages/products/index.md"
         label: "Products Page"

@@ -7,6 +7,7 @@ import {
 } from 'react-spring';
 
 import Hider from '../components/Hider'
+import ContactBox from '../components/ContactBox';
 import { Main, P, mainColor, Line } from '../styles/generals';
 
 const Container = styled.div`
@@ -81,31 +82,20 @@ const SocialMediaBox = styled.div`
   color: white;
   padding: 48px 5%;
 `
-const ContactBox = styled.div`
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  font-size: 16px;
-  letter-spacing: 0.5px;
-  font-weight: 700;
-  color: white;
-  padding: 48px;
-  display: flex;
 
-  & > div {
-    margin-left: 24px
-  }
-
-  a {
-    display: block;
-    margin-top: 8px;
-    opacity: 0.75;
-    color: white;
-    font-size: 100%;
-  }
-`
 let lastX = Date.now();
 let diff = 0;
+
+const fadeInDown = {
+  from: {opacity: 0, y: -100},
+  to:{ opacity:1, y: 0 }
+}
+
+const fadeInUp = {
+  from: {opacity: 0, y: 100},
+  to:{ opacity:1, y: 0 }
+}
+
 export default class IndexPage extends React.Component {
   constructor(props) {
     super(props)
@@ -143,10 +133,10 @@ export default class IndexPage extends React.Component {
         <Hider />
         <Container>
           <TopBar>
-            <Spring delay={3000} from={{opacity: 0, y: -100}} to={{opacity:1, y: 0}}>
+            <Spring delay={3000} {...fadeInDown}>
               {({opacity, y}) =>  <Name style={{opacity, transform: `translate3d(0,${y}%,0)`}}>Marvin Ernst</Name>}
             </Spring>
-            <Spring delay={3200} from={{opacity: 0, y: -100}} to={{opacity:1, y: 0}}>
+            <Spring delay={3200} {...fadeInDown}>
               {({opacity, y}) =>  <SocialMediaBox style={{opacity, transform: `translate3d(0,${y}%,0)`}}>asd</SocialMediaBox>}
             </Spring>
           </TopBar>
@@ -160,17 +150,8 @@ export default class IndexPage extends React.Component {
           </MainContent>
 
           <BottomBar>
-            <Spring delay={3500} from={{opacity: 0, y: 100}} to={{opacity:1, y: 0}}>
-             { ({opacity, y}) => ( <ContactBox   style={{opacity, transform: `translate3d(0,${y}%,0)`}}>
-                <div>
-                  <div>E-mail:</div>
-                  <a href="mailto:info@ernst.haft">info@ernst.haft</a>
-                </div>
-                <div>
-                  <div>Telefon:</div>
-                  <a href="tel:(+49) 564123 / 123456">(+49) 564123 / 123456</a>
-                </div>
-              </ContactBox>)}
+            <Spring delay={3500} {...fadeInUp}>
+             { ({opacity, y}) => <ContactBox style={{opacity, transform: `translate3d(0,${y}%,0)`}}/>}
             </Spring>
           </BottomBar>
         </Container>

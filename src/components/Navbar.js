@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import NavItem from './navbar-item';
+import NavItem from './Navbar-item';
 import {mainColor} from '../styles/generals'
 import Logo from '../components/logo';
 

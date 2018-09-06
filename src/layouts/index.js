@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Helmet from 'react-helmet'
 import styled from 'styled-components';
-import Navbar from '../components/navbar'
+import Navbar from '../components/Navbar'
 import './index.css'
 import { push } from 'gatsby-link';
 

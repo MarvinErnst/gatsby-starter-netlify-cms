@@ -66,7 +66,7 @@ const Name= styled.div`
   padding: 48px 5%;
 `
 
-  const SocialMediaBox = styled.div`
+const SocialMediaBox = styled.div`
   position: absolute;
   top: 0;
   right: 0;

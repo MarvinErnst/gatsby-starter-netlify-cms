@@ -2,8 +2,13 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import Link from 'gatsby-link'
 import styled from 'styled-components'
+import {
+  Spring,
+} from 'react-spring';
+
 import Hider from '../components/Hider'
 import { Main, P, mainColor, Line } from '../styles/generals';
+
 const Container = styled.div`
   width: calc(84vw - 100px);
   height: 84vh;
@@ -95,7 +100,7 @@ const ContactBox = styled.div`
     display: block;
     margin-top: 8px;
     opacity: 0.75;
-
+    color: white;
     font-size: 100%;
   }
 `
@@ -127,12 +132,23 @@ export default class IndexPage extends React.Component {
     const { edges: posts } = data.allMarkdownRemark
 
     return (
-      <div style={{backgroundSize: '110%',backgroundPosition:`${50+this.state.diffX}% ${50 +this.state.diffY}%`,backgroundColor: mainColor, backgroundImage: 'url(/img/jumbotron.jpg)', backgroundBlendMode: 'soft-light'}} onMouseMove={this.handleMouseMove}>
+      <div style={{
+        backgroundSize: '110%',
+        backgroundPosition:`${50+this.state.diffX}% ${50 +this.state.diffY}%`,
+        backgroundColor: mainColor,
+        backgroundImage: 'url(/img/jumbotron.jpg)',
+        backgroundBlendMode: 'soft-light'}}
+        onMouseMove={this.handleMouseMove}
+      >
         <Hider />
         <Container>
           <TopBar>
-            <Name>Marvin Ernst</Name>
-            <SocialMediaBox>asd</SocialMediaBox>
+            <Spring delay={3000} from={{opacity: 0, y: -100}} to={{opacity:1, y: 0}}>
+              {({opacity, y}) =>  <Name style={{opacity, transform: `translate3d(0,${y}%,0)`}}>Marvin Ernst</Name>}
+            </Spring>
+            <Spring delay={3200} from={{opacity: 0, y: -100}} to={{opacity:1, y: 0}}>
+              {({opacity, y}) =>  <SocialMediaBox style={{opacity, transform: `translate3d(0,${y}%,0)`}}>asd</SocialMediaBox>}
+            </Spring>
           </TopBar>
 
           <MainContent>
@@ -144,16 +160,18 @@ export default class IndexPage extends React.Component {
           </MainContent>
 
           <BottomBar>
-            <ContactBox>
-              <div>
-                <div>E-mail:</div>
-                <a href="mailto:info@ernst.haft">info@ernst.haft</a>
-              </div>
-              <div>
-                <div>Telefon:</div>
-                <a href="tel:(+49) 564123 / 123456">(+49) 564123 / 123456</a>
-              </div>
-            </ContactBox>
+            <Spring delay={3500} from={{opacity: 0, y: 100}} to={{opacity:1, y: 0}}>
+             { ({opacity, y}) => ( <ContactBox   style={{opacity, transform: `translate3d(0,${y}%,0)`}}>
+                <div>
+                  <div>E-mail:</div>
+                  <a href="mailto:info@ernst.haft">info@ernst.haft</a>
+                </div>
+                <div>
+                  <div>Telefon:</div>
+                  <a href="tel:(+49) 564123 / 123456">(+49) 564123 / 123456</a>
+                </div>
+              </ContactBox>)}
+            </Spring>
           </BottomBar>
         </Container>
       </div>

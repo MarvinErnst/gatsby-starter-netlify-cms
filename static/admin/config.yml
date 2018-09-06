@@ -44,6 +44,15 @@ collections:
         label: "About"
         name: "about"
         fields:
+          - {label: "Template Key", name: "templateKey", widget: "hidden", default: "contact"}
+          - {label: "Title", name: "title", widget: "string"}
+          - {label: "Subtitle", name: "subtitle", widget: "string"}
+          - {label: "Body", name: "body", widget: "markdown"}
+          - {label: "Image", name: image, widget: "image"}
+      - file: "src/pages/about/index.md"
+        label: "About"
+        name: "about"
+        fields:
           - {label: "Template Key", name: "templateKey", widget: "hidden", default: "about-page"}
           - {label: "Title", name: "title", widget: "string"}
           - {label: "Subtitle", name: "subtitle", widget: "string"}

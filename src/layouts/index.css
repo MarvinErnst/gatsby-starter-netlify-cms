@@ -5,7 +5,7 @@ body {
   display: block ;
   font-family: Lato, sans-serif ;
   font-size: 15px ;
-  height: 1080px ;
+
   line-height: 20px ;
   margin-bottom: 0px ;
   margin-left: 0px ;
@@ -27,6 +27,7 @@ p {
 
 .hider {
   left: 100px;
+  top:0;
   height:100vh;
   width: 100vw;
   background: white;

@@ -54,17 +54,22 @@ const LogoLink = styled.a`
 
 
 export default class Navbar extends Component {
+
+  onClick = (e, href) => {
+    e.preventDefault();
+    this.props.onRouteChange(href)
+  }
+
   render() {
     return (
       <StyledNavbar>
         <NavContainer>
           <LogoLink><Logo color={mainColor} /></LogoLink>
           <Nav>
-            <NavItem href="/about" >About</NavItem>
-            <NavItem href="/contact" >Contact</NavItem>
-            <NavItem href="/portfolio" >Portfolio</NavItem>
-            <NavItem href="/contract" >Contract</NavItem>
-            <NavItem href="/" >Home</NavItem>
+            <NavItem onClick={this.onClick} href="/contact" >Contact</NavItem>
+            <NavItem onClick={this.onClick} href="/portfolio" >Portfolio</NavItem>
+            <NavItem onClick={this.onClick} href="/about" >About</NavItem>
+            <NavItem onClick={this.onClick} href="/" >Home</NavItem>
           </Nav>
           <div className="nav-add-menu">
 

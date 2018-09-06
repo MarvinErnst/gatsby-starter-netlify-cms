@@ -41,6 +41,6 @@ export const Line = styled.div`
   position: absolute;
   height: 1px;
   top: ${props => props.top || 0}
-  background-color: ${mainColor}
+  background-color: ${({color}) => color || mainColor};
 `
 

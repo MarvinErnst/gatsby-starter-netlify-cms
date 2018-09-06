@@ -21,8 +21,8 @@ text-decoration: none;
   cursor: pointer;
 
   &:hover:not(.active) {
-    background: crimson;
-    color: white;
+    color: #000;
+    opacity: 1;
   }
 
   &.active {
@@ -33,9 +33,9 @@ text-decoration: none;
 
 export default class NavbarItem extends Component {
   render() {
-    const {href, children} = this.props
+    const {href, children, onClick} = this.props
     return (
-      <NavItem exact to={href} activeClassName="active">{children}</NavItem>
+      <NavItem exact to={href} onClick={(e) => onClick(e,href)} activeClassName="active">{children}</NavItem>
     )
   }
 }

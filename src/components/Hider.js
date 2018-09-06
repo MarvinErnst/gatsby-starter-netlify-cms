@@ -13,9 +13,20 @@ const animationSpeed = {
 
 export default class Hider extends Component {
   render() {
+    const {show} = this.props;
+    const config = {
+      from: {
+        opacity: 1,
+        x: show ? '-90%' : '0%',
+      },
+      to: {
+        opacity: 1,
+        x:show ? '0' : '-100%',
+      }
+    }
     return (
       <div>
-         <Spring config={animationSpeed} delay={400} from={{ opacity: 1, x: '0%'}} to={{ opacity: 1, x:'-100%' }}>
+         <Spring config={animationSpeed} delay={400} {...config}>
             {({opacity,x}) =>  <animated.div className="hider" style={{transform: `translate3d(${x}, 0,0)` }} />}
           </Spring>
           <Spring config={animationSpeed} delay={400} from={{ opacity: 0.75, x: '0%'}} to={{ opacity: 0, x:'-40%' }}>

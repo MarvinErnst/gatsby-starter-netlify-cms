@@ -16,12 +16,12 @@ const Image = styled.div`
   bottom: 0;
   height: 100%;
   width: 60%;
+  opacity: ${({show}) => show ? 1 : 0};
   background-image: url(${({src}) => src});
   background-size: cover;
   background-position: right;
   background-repeat: no-repeat;
   background-color: ${({color}) => color};
-  background-blend-mode: hard-light;
   transition: all 0.5s
 `
 
@@ -30,11 +30,13 @@ class Gallery extends Component {
  static propTypes = {
    transitionPoints: PropTypes.arrayOf(PropTypes.number),
    activeImage: PropTypes.number,
+   scroll: PropTypes.bool,
  }
 
  static defaultProps = {
   transitionPoints: null,
-  activeImage: 0
+  activeImage: 0,
+  scroll: true
  }
 
  constructor(props) {
@@ -64,31 +66,45 @@ class Gallery extends Component {
   }
 
   componentWillUpdate(props, state) {
-    if(props.activeImage !== state.activeImageId) {
+    if(props.activeImage !== state.activeImageId && !props.scroll ) {
       this.setState({
         activeImageId: this.props.activeImage
-      })
+      });
     }
+    return false;
   }
 
   handleOnScroll = (e) => {
-   const {transitionPoints} = this.state;
-   const currentScrollPosition = e.currentTarget.scrollY;
-   transitionPoints.forEach((position, index) => {
-     if(currentScrollPosition > position && index !== this.state.activeImageId) {
+    const {transitionPoints} = this.state;
+    const currentScrollPosition = e.currentTarget.scrollY;
+
+    // for(let i = 0; i < transitionPoints.length; i++) {
+    //   const accPosition = transitionPoints[i];
+    //   const nextPos =
+    // }
+    transitionPoints.forEach((position, index) => {
+      const accPosition = position;
+      const nextPosition = transitionPoints[index+1] || document.body.scrollHeight;
+      if(currentScrollPosition < nextPosition && currentScrollPosition > accPosition && index !== this.state.activeImageId) {
+        console.log('ich sweaskdljasd')
        this.setState({
          activeImageId: index
-       })
+       });
      }
+
    });
 
   }
+
   render() {
     const {color, images} = this.props;
     const {activeImageId} = this.state;
     return (
       <GalleryContainer >
-        {images && <Image color={color} src={images[activeImageId]} />}
+        <div>
+          {images.map((src, index) => <Image show={index === activeImageId} color={color} src={src} />
+          )}
+        </div>
 
       </GalleryContainer>
     )

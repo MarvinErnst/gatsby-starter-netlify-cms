@@ -1,16 +1,15 @@
 import React, { Fragment } from 'react'
 import Link, { push } from 'gatsby-link'
 import styled from 'styled-components'
-import Header from '../components/header';
-import Content from '../components/content';
-import Gallery from '../components/gallery';
-import Hider from '../components/hider';
+import Content from '../components/Content';
+import Gallery from '../components/Gallery';
+import Hider from '../components/Hider';
 import { Main, P, mainColor, Line } from '../styles/generals';
 
 
 const Container = styled(Main)`
   margin-top: 200px;
-  padding-right:0;
+  padding: 5vw 48px 2vw 8vw
 `;
 
 const ItemTitle = styled.div`
@@ -32,14 +31,14 @@ const LineContainer = styled.div`
   bottom: 0;
   margin-right: 16px;
   width:30px;
-  transition: all 0.5s
+  transition: all 0.25s
 `;
 
 const Item = styled.div`
   display: flex;
   flex-direction: row;
   position: relative;
-
+  cursor: pointer;
   margin-bottom: 40px;
   line-height:1;
   opacity: ${ ({active}) => active ? 1 : 0.3};
@@ -59,20 +58,24 @@ const Item = styled.div`
 
 
 
-
-
-
-
 class Portfolio extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
       activeImage: 0,
+      showHider: false,
       activeElement: this.props.data.allMarkdownRemark.edges[0].node.id,
     }
   }
 
+  componentDidUpdate(p,s) {
+    if(!p.show && this.props.show) {
+      this.setState({
+        showHider: true
+      })
+    }
+  }
   activateElement = ({id, index}) => {
 
     this.setState({activeImage: index, activeElement:id})
@@ -100,8 +103,9 @@ class Portfolio extends React.Component {
     })
     return (
       <div>
-        <Hider />
+        <Hider show={this.state.showHider}/>
         <Content
+          largeRight
           left={
             (
               <Container>
@@ -110,7 +114,7 @@ class Portfolio extends React.Component {
             )
           }
           right={
-             <Gallery activeImage={this.state.activeImage}  color={mainColor} images={images}/>
+             <Gallery scroll={false} activeImage={this.state.activeImage}  color={mainColor} images={images}/>
           }
         />
       </div >

@@ -1,16 +1,12 @@
 import React, { Fragment } from 'react'
 import Link, { push } from 'gatsby-link'
-import Header from '../components/header';
-import Content from '../components/content';
-import Gallery from '../components/gallery';
+import Header from '../components/Header';
+import Content from '../components/Content';
+import Gallery from '../components/Gallery';
 import Hider from '../components/Hider'
 import { Main, P, mainColor } from '../styles/generals';
 import {
-  AnimatedValue,
-  animated,
   Spring,
-  interpolate,
-  controller as spring
 } from 'react-spring';
 
 /** Animations */
@@ -18,20 +14,32 @@ const animationSpeed = {
   tension: 280, friction: 160
 }
 
-// const animation = new AnimatedValue(window.innerWidth-100);
-// const show = (daata) => spring(animation, { to: window.innerWidth }).start((fata) => {
-//   push(daata);
-// });
-// const hide = () => spring(animation, { to: 0, ...animationSpeed}).start();
-
 class SecondPage extends React.Component {
+
+  constructor(props) {
+    super(props)
+
+    this.state = {
+       showHider: false
+    }
+  }
+
+
+  componentDidUpdate(p,s) {
+    if(!p.show && this.props.show) {
+      this.setState({
+        showHider: true
+      })
+    }
+  }
+
   render() {
     const {frontmatter, html} = this.props.data.markdownRemark;
     const { title, subtitle, image, image2, image3 } = frontmatter;
 
     return (
       <div>
-        <Hider />
+        <Hider show={this.state.showHider}/>
         <Content
           left={
             (

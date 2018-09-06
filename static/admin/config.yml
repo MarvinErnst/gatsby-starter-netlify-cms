@@ -18,6 +18,24 @@ collections:
       - {label: "Description", name: "description", widget: "text"}
       - {label: "Body", name: "body", widget: "markdown"}
       - {label: "Tags", name: "tags", widget: "list"}
+  - name: "portfolio"
+    label: "Portfolio"
+    folder: "src/pages/portfolio"
+    create: true
+    slug: "{{slug}}"
+    fields:
+      - {label: "Template Key", name: "templateKey", widget: "hidden", default: "blog-post"}
+      - {label: "Title", name: "title", widget: "string"}
+      - {label: "Subtitle", name: "subtitle", widget: "string"}
+      - {label: "Umsetzungszeitraum", name: "date", widget: "string"}
+      - {label: "Beschreibung", name: "description", widget: "text"}
+      - {label: "Projektträger", name: "projekttraeger", widget: "string"}
+      - {label: "Zielgruppe", name: "zielgruppe", widget: "string"}
+      - {label: "Umsetzung", name: "umsetzung", widget: "string"}
+      - {label: "Image", name: image, widget: "image"}
+      - {label: "Image 2", name: image2, widget: "image"}
+      - {label: "Image 3", name: image3, widget: "image"}
+      - {label: "Tags", name: "tags", widget: "list"}
 
   - name: "pages"
     label: "Pages"

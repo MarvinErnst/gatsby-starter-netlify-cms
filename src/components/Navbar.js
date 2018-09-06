@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styled from 'styled-components'
-import NavItem from './Navbar-item';
+import NavItem from './NavbarItem';
 import {mainColor} from '../styles/generals'
 import Logo from '../components/logo';
 
@@ -45,7 +45,6 @@ const LogoLink = styled.a`
   font-size: 2.8em;
   font-weight: 700;
   text-align: center;
-
 
   svg {
     width: 64px

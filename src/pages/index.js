@@ -10,6 +10,7 @@ const Container = styled.div`
   padding:  8vh 8vw;
   overflow: hidden;
   position: relative;
+  background-color: rgba(0,0,0,0.5)
 `
 const AbsoluteElement = styled.div`
   position: absolute;
@@ -90,7 +91,7 @@ const ContactBox = styled.div`
     margin-left: 24px
   }
 
-  small {
+  a {
     display: block;
     margin-top: 8px;
     opacity: 0.75;
@@ -98,13 +99,35 @@ const ContactBox = styled.div`
     font-size: 100%;
   }
 `
+let lastX = Date.now();
+let diff = 0;
 export default class IndexPage extends React.Component {
+  constructor(props) {
+    super(props)
+
+    this.state = {
+       diffX: 0,
+       diffY: 0,
+    }
+  }
+
+  handleMouseMove = (e) => {
+    if(Date.now() - lastX > 80) {
+      this.setState({
+        diffX:  (window.innerWidth - e.clientX) * -.03,
+        diffY:  (window.innerHeight - e.clientY) * -.03
+      })
+      lastX = Date.now();
+    }
+  }
+
+
   render() {
     const { data } = this.props
     const { edges: posts } = data.allMarkdownRemark
 
     return (
-      <div style={{backgroundColor: mainColor}}>
+      <div style={{backgroundSize: '110%',backgroundPosition:`${50+this.state.diffX}% ${50 +this.state.diffY}%`,backgroundColor: mainColor, backgroundImage: 'url(/img/jumbotron.jpg)', backgroundBlendMode: 'soft-light'}} onMouseMove={this.handleMouseMove}>
         <Hider />
         <Container>
           <TopBar>
@@ -117,18 +140,18 @@ export default class IndexPage extends React.Component {
             <div style={{position:'relative',height:1, marginLeft: '12%'}}>
               <Line width="400px" color="white" />
             </div>
-            <MainContentDesc>Eaque nam totam consequatur commodi. Sint qui ut. Dolorum et quaerat sequi excepturi ut fuga aut. A perferendis quae numquam dignissimos et dolorum.  </MainContentDesc>
+            <MainContentDesc>Eaque nam totam consequatur commodi. Sint qui ut. Dolorum et quaerat sequi excepturi ut fuga aut. A perferendis quae numquam dignissimos et dolorum.</MainContentDesc>
           </MainContent>
 
           <BottomBar>
             <ContactBox>
               <div>
                 <div>E-mail:</div>
-                <small>info@ernsthaft.de</small>
+                <a href="mailto:info@ernst.haft">info@ernst.haft</a>
               </div>
               <div>
                 <div>Telefon:</div>
-                <small>(+49) 564123 / 123456</small>
+                <a href="tel:(+49) 564123 / 123456">(+49) 564123 / 123456</a>
               </div>
             </ContactBox>
           </BottomBar>

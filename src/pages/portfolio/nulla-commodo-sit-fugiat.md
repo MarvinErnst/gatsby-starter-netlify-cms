@@ -1,5 +1,5 @@
 ---
-templateKey: blog-post
+templateKey: portfolio-page
 title: 'Nulla commodo sit fugiat'
 subtitle: Lorem dolore dolore aliqua enim commodo
 date: 2017 - 2018

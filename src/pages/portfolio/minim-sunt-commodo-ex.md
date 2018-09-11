@@ -1,5 +1,5 @@
 ---
-templateKey: blog-post
+templateKey: portfolio-page
 title: 'Minim sunt commodo ex '
 subtitle: Lorem dolore dolore aliqua enim commodo
 date: 2018 - 2019

@@ -1,5 +1,5 @@
 ---
-templateKey: blog-post
+templateKey: portfolio-page
 title: ' Ipsum enim cillum aute'
 subtitle: Lorem dolore dolore aliqua enim commodo
 date: 2018 - 2019

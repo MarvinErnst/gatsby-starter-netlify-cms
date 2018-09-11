@@ -125,10 +125,10 @@ export default Portfolio;
 
 
 export const query = graphql`
-query GetBlogPosts {
+query GetPortfolioPages {
   allMarkdownRemark(filter: {
     frontmatter: {
-      templateKey: {eq: "blog-post"}
+      templateKey: {eq: "portfolio-page"}
     }
   }) {
     edges {

@@ -32,9 +32,9 @@ collections:
       - {label: "Projektträger", name: "projekttraeger", widget: "string"}
       - {label: "Zielgruppe", name: "zielgruppe", widget: "string"}
       - {label: "Umsetzung", name: "umsetzung", widget: "string"}
-      - {label: "Image", name: image, widget: "image"}
-      - {label: "Image 2", name: image2, widget: "image"}
-      - {label: "Image 3", name: image3, widget: "image"}
+      - {label: "Hauptbild", name: image, widget: "image"}
+      - {label: "Image 2", name: image2, widget: "image", required: false}
+      - {label: "Image 3", name: image3, widget: "image", required: false}
       - {label: "Tags", name: "tags", widget: "list"}
 
   - name: "pages"

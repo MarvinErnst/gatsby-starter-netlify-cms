@@ -103,6 +103,14 @@ export default class IndexPage extends React.Component {
     this.state = {
        diffX: 0,
        diffY: 0,
+       showHider: false,
+    }
+  }
+  componentDidUpdate(p,s) {
+    if(!p.show && this.props.show) {
+      this.setState({
+        showHider: true
+      })
     }
   }
 
@@ -130,7 +138,7 @@ export default class IndexPage extends React.Component {
         backgroundBlendMode: 'soft-light'}}
         onMouseMove={this.handleMouseMove}
       >
-        <Hider />
+        <Hider show={this.state.showHider}/>
         <Container>
           <TopBar>
             <Spring delay={3000} {...fadeInDown}>

@@ -52,7 +52,9 @@ class SecondPage extends React.Component {
             )
           }
           right={
-            <Gallery activeImage={0}  color={mainColor} images={[image, image2, image3]}/>
+
+             <Gallery activeImage={0}  color={mainColor} images={[image, image2, image3]}/>
+
           }
         />
         <p>

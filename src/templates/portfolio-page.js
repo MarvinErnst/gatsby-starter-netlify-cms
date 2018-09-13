@@ -1,73 +1,50 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import { kebabCase } from 'lodash'
-import Helmet from 'react-helmet'
 import Link from 'gatsby-link'
-import Content, { HTMLContent } from '../components/Content'
+import styled from 'styled-components';
+import HeroSection from '../components/HeroSection';
+import { Main, P, mainColor } from '../styles/generals';
 
-export const BlogPostTemplate = ({
-  content,
-  contentComponent,
-  description,
-  tags,
-  title,
-  helmet,
+
+const Image = styled.div`
+  top: 0;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  background-image: url(${({src}) => src});
+  background-size: cover;
+  background-position: left;
+  background-repeat: no-repeat;
+`;
+
+
+const PortfolioPage = ({
+  data
 }) => {
-  const PostContent = contentComponent || Content
-
+  const {date, title, description, image} = data.markdownRemark.frontmatter
   return (
-    <section className="section">
-      {helmet || ''}
-      <div className="container content">
-        <div className="columns">
-          <div className="column is-10 is-offset-1">
-            <h1 className="title is-size-2 has-text-weight-bold is-bold-light">
-              {title}
-            </h1>
-            <p>{description}</p>
-            <PostContent content={content} />
-            {tags && tags.length ? (
-              <div style={{ marginTop: `4rem` }}>
-                <h4>Tags</h4>
-                <ul className="taglist">
-                  {tags.map(tag => (
-                    <li key={tag + `tag`}>
-                      <Link to={`/tags/${kebabCase(tag)}/`}>{tag}</Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ) : null}
-          </div>
-        </div>
-      </div>
+    <section className="section" style={{overflow:'hidden', height: '100vh'}}>
+      <HeroSection image={image} >
+
+
+      </HeroSection>
+      <Main>
+        <h1 className="title is-size-2 has-text-weight-bold is-bold-light">
+          {title}
+        </h1>
+        <p>{description}</p>
+      </Main>
+
     </section>
   )
 }
 
-BlogPostTemplate.propTypes = {
-  content: PropTypes.string.isRequired,
-  contentComponent: PropTypes.func,
-  description: PropTypes.string,
-  title: PropTypes.string,
-  helmet: PropTypes.instanceOf(Helmet),
-}
 
-const BlogPost = ({ data }) => {
-  const { markdownRemark: post } = data
 
-  return (
-   null
-  )
-}
-
-BlogPost.propTypes = {
-  data: PropTypes.shape({
-    markdownRemark: PropTypes.object,
-  }),
-}
-
-export default BlogPost
+export default PortfolioPage
 
 export const pageQuery = graphql`
   query PortfolioPageByID($id: String!) {
@@ -79,6 +56,7 @@ export const pageQuery = graphql`
         title
         description
         tags
+        image
       }
     }
   }

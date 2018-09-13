@@ -1,11 +1,20 @@
 import React, { Fragment } from 'react'
 import Link, { push } from 'gatsby-link'
 import styled from 'styled-components'
+import {
+  AnimatedValue,
+  animated,
+  interpolate,
+  controller as spring,
+  Spring,
+} from 'react-spring'
 import Content from '../components/Content';
 import Gallery from '../components/Gallery';
 import Hider from '../components/Hider';
 import { Main, P, mainColor, Line } from '../styles/generals';
 
+const animation = new AnimatedValue('#28d79f')
+const hover = () => spring(animation, { to: '#c23369' }).start()
 
 const Container = styled(Main)`
   margin-top: 200px;
@@ -81,26 +90,40 @@ class Portfolio extends React.Component {
     this.setState({activeImage: index, activeElement:id})
   }
 
+  showElement = (path) => {
+    this.setState({
+      animateTransition: true
+    });
+    setTimeout(() => {
+      push(path)
+    }, 750);
+  }
+
 
   render() {
 
     const {edges} = this.props.data.allMarkdownRemark;
-    const images = [' /img/products-grid2.jpg',
-      '/img/jumbotron.jpg',
-      ' /img/products-grid3.jpg'];
+    const images = [];
     const elements = edges.map(({node}, index) =>{
-      //images.push(node.frontmatter.images)
+      images.push(node.frontmatter.image)
       return(
-      <Item key={node.id} active={node.id === this.state.activeElement} onMouseEnter={() => this.activateElement({index,id: node.id})}>
+      <Item key={node.id} onClick={() => this.showElement(node.fields.slug)} active={node.id === this.state.activeElement} onMouseEnter={() => this.activateElement({index,id: node.id})}>
         <LineContainer>
           <Line width="100%" top="0" />
         </LineContainer>
 
         <ItemTitle >{node.frontmatter.title}</ItemTitle>
-        <ItemSubtitle>{node.frontmatter.date}</ItemSubtitle>
+        <ItemSubtitle>{node.frontmatter.subtitle}</ItemSubtitle>
 
       </Item>)
     })
+
+    const animate =  this.state.animateTransition ? {
+      from:{width: '60%'},
+      to:{width: '100%'},
+    }: { from:{width: '50%'},
+    to:{width: '50%'},};
+
     return (
       <div>
         <Hider show={this.state.showHider}/>
@@ -114,7 +137,9 @@ class Portfolio extends React.Component {
             )
           }
           right={
-             <Gallery scroll={false} activeImage={this.state.activeImage}  color={mainColor} images={images}/>
+            <Spring {...animate}>
+            { ({width}) => <Gallery width={width} scroll={false} activeImage={this.state.activeImage} color={mainColor} images={images}/>}
+            </Spring >
           }
         />
       </div >
@@ -134,9 +159,12 @@ query GetPortfolioPages {
     edges {
       node {
         id
+        fields {
+          slug
+        }
         frontmatter {
           title
-          date
+          subtitle
           image
         }
       }

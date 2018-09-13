@@ -4,9 +4,10 @@ import styled from 'styled-components';
 
 const GalleryContainer = styled.div`
 height: 100vh;
-width: 100%;
+width: ${({width}) => width};
 position: fixed;
 overflow: hidden;
+right: 0
 `
 const Image = styled.div`
   top: 0;
@@ -15,14 +16,13 @@ const Image = styled.div`
   right: 0;
   bottom: 0;
   height: 100%;
-  width: 60%;
   opacity: ${({show}) => show ? 1 : 0};
   background-image: url(${({src}) => src});
   background-size: cover;
-  background-position: right;
+  background-position: left;
   background-repeat: no-repeat;
   background-color: ${({color}) => color};
-  transition: all 0.5s
+  transition: all 0.5s;
 `
 
 class Gallery extends Component {
@@ -31,12 +31,14 @@ class Gallery extends Component {
    transitionPoints: PropTypes.arrayOf(PropTypes.number),
    activeImage: PropTypes.number,
    scroll: PropTypes.bool,
+   width: PropTypes.string,
  }
 
  static defaultProps = {
   transitionPoints: null,
   activeImage: 0,
-  scroll: true
+  scroll: true,
+  width: '40%'
  }
 
  constructor(props) {
@@ -86,7 +88,6 @@ class Gallery extends Component {
       const accPosition = position;
       const nextPosition = transitionPoints[index+1] || document.body.scrollHeight;
       if(currentScrollPosition < nextPosition && currentScrollPosition > accPosition && index !== this.state.activeImageId) {
-        console.log('ich sweaskdljasd')
        this.setState({
          activeImageId: index
        });
@@ -97,10 +98,10 @@ class Gallery extends Component {
   }
 
   render() {
-    const {color, images} = this.props;
+    const {color, images, width} = this.props;
     const {activeImageId} = this.state;
     return (
-      <GalleryContainer >
+      <GalleryContainer width={width}>
         <div>
           {images.map((src, index) => <Image show={index === activeImageId} color={color} src={src} />
           )}

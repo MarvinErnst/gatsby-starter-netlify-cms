@@ -2,13 +2,26 @@ import React, { Component } from 'react'
 import styled from 'styled-components'
 import ContactBox from '../components/ContactBox';
 import { Main, P, mainColor, Line } from '../styles/generals';
+const HeroSection = styled.div`
 
+  width: calc(100vw);
+  height: 100%;
+  overflow: hidden;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-left: -100px;
+  background-position: left;
+  background-image: ${({image}) => `url(${image})`};
+  background-blen-mode: soft-light;
+
+`
 const Container = styled.div`
   width: calc(84vw - 100px);
   height: 84vh;
   padding:  8vh 8vw;
   overflow: hidden;
   position: relative;
+  margin-left: 100px;
   // background-color: rgba(0,0,0,0.5)
 `
 const AbsoluteElement = styled.div`
@@ -36,16 +49,19 @@ const BottomBar = styled.div`
 const MainContent = styled.div`
 position: relative;
 top: 45%;
+display: flex;
+align-items: center;
+flex-direction: column;
 `
 
 const MainContentHeadline = styled.h1`
-  margin-left: 12%;
+  margin-left: 0;
+  margin-right: 0;
   margin-top: 0;
-  font-size: 130px;
+  font-size: 6em;
   color: white;
 `
 const MainContentDesc = styled.div`
-  margin-left: 16%;
   color: white;
   font-size: 20px;
   font-weight: 300;
@@ -75,29 +91,13 @@ const SocialMediaBox = styled.div`
   color: white;
   padding: 48px 5%;
 `
-// background-position:`${50+this.state.diffX}% ${50 +this.state.diffY}%`,
-  //background-color: ${{c}}this.props.blendColor,
-const HeroSection = styled.div`
 
-  width: calc(100vw);
-  height: 100%;
-  overflow: hidden;
-  background-repeat: no-repeat;
-  background-size: cover;
-  margin-left: -100px;
-  background-position: left;
-  background-image: ${({image}) => `url(${image})`};
-  background-blen-mode: soft-light;
 
-`
 export default class HeroSectionComponent extends Component {
 
   render() {
     return (
-      <HeroSection image={this.props.image}
-        // onMouseMove={this.handleMouseMove}
-
-      >
+      <HeroSection image={this.props.image}>
 
         <Container>
           <TopBar>
@@ -105,11 +105,11 @@ export default class HeroSectionComponent extends Component {
           </TopBar>
 
           <MainContent>
-            <MainContentHeadline>Hallo </MainContentHeadline>
-            <div style={{position:'relative',height:1, marginLeft: '12%'}}>
+            <MainContentHeadline>{this.props.title} </MainContentHeadline>
+            <div style={{position:'relative',height:1, width: '400px'}}>
               <Line width="400px" color="white" />
             </div>
-            <MainContentDesc>Eaque nam totam consequatur commodi. Sint qui ut. Dolorum et quaerat sequi excepturi ut fuga aut. A perferendis quae numquam dignissimos et dolorum.</MainContentDesc>
+            <MainContentDesc>{this.props.desc} </MainContentDesc>
           </MainContent>
 
           <BottomBar>{this.props.bottom}

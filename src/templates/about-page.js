@@ -44,17 +44,15 @@ class SecondPage extends React.Component {
           left={
             (
               <Fragment>
-              <Header title={title} subtitle={subtitle} />
+                <Header title={title} subtitle={subtitle} />
                 <Spring config={animationSpeed} delay={300} from={{ opacity: 0, y: '100px'}} to={{ opacity: 1, y:'0' }}>
-                   {({opacity, y}) => <Main style={{transform: `translate3d(0, ${y},0)`, opacity}} dangerouslySetInnerHTML={{ __html: html }}/>}
+                    {({opacity, y}) => <Main style={{transform: `translate3d(0, ${y},0)`, opacity}} dangerouslySetInnerHTML={{ __html: html }}/>}
                 </Spring>
               </Fragment>
             )
           }
           right={
-
-             <Gallery activeImage={0}  color={mainColor} images={[image, image2, image3]}/>
-
+            <Gallery activeImage={0}  color={mainColor} images={[image, image2, image3]}/>
           }
         />
         <p>

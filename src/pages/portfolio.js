@@ -128,7 +128,7 @@ class Portfolio extends React.Component {
       <div>
         <Hider show={this.state.showHider}/>
         <Content
-          largeRight
+          size={[46, 54 ]}
           left={
             (
               <Container>

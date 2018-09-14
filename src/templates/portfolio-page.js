@@ -1,44 +1,88 @@
-import React from 'react'
+import React, { Fragment } from 'react'
 import PropTypes from 'prop-types'
 import { kebabCase } from 'lodash'
 import Link from 'gatsby-link'
 import styled from 'styled-components';
 import HeroSection from '../components/HeroSection';
+import Content from '../components/Content';
+import Steckbrief from '../components/Steckbrief';
 import { Main, P, mainColor } from '../styles/generals';
 
 
-const Image = styled.div`
-  top: 0;
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: 100%;
-  background-image: url(${({src}) => src});
-  background-size: cover;
-  background-position: left;
-  background-repeat: no-repeat;
-`;
+
+
+
+
+const Text = styled.p`
+  margin-top: 35px;
+  margin-bottom: 0;
+  font-size: 1.35em;
+  line-height: 1.9em;
+  font-weight: 300;
+`
+
+const Description = styled.div`
+  align-self:center;
+`
+const Image = styled.img`
+  max-width: 100%;
+  height: auto;
+`
 
 
 const PortfolioPage = ({
   data
 }) => {
-  const {date, title, description, image} = data.markdownRemark.frontmatter
+  const { title, subtitle,  description, image,date,
+    projekttraeger,
+    zielgruppe,
+    umsetzung,} = data.markdownRemark.frontmatter
   return (
-    <section className="section" style={{overflow:'hidden', height: '100vh'}}>
-      <HeroSection image={image} >
+    <div className="section" style={{overflowX: 'hidden'}}>
+      <HeroSection image={image} title={title} desc={subtitle} />
 
+      <Main style={{padding: '8vw 10vw'}}>
+        <Content
+          flex
+          size={[1, 1]}
+          left={(
+            <Description>
+              <h1>Zusammenfassung</h1>
+              <Text>{description}</Text>
+            </Description>
+          )}
+          right={(
+            <div style={{    paddingLeft: '30%', flex: 1}}>
+              <Steckbrief data={[
+                {title: 'zeitraum', text: date},
+                {title: 'projektträger', text: projekttraeger},
+                {title: 'zielgruppe', text: zielgruppe},
+                {title: 'umsetzung', text: umsetzung},
 
-      </HeroSection>
-      <Main>
-        <h1 className="title is-size-2 has-text-weight-bold is-bold-light">
-          {title}
-        </h1>
-        <p>{description}</p>
+              ]} />
+            </div>
+          )}
+        />
       </Main>
+      <HeroSection image={image} />
 
-    </section>
+       <Main style={{padding: '11vw 10vw'}}>
+        <Content
+          size={[1, 1]}
+          left={(
+            <Description>
+              <h1>Prutselbaum</h1>
+              <Text>{description}</Text>
+            </Description>
+          )}
+          right={(
+            <div style={{    paddingLeft: '30%', flex: 1}}>
+              <Image src={image} alt=""/>
+            </div>
+          )}
+        />
+      </Main>
+    </div>
   )
 }
 
@@ -52,11 +96,15 @@ export const pageQuery = graphql`
       id
       html
       frontmatter {
-        date(formatString: "MMMM DD, YYYY")
         title
+        subtitle
         description
         tags
         image
+        date
+        projekttraeger
+        zielgruppe
+        umsetzung
       }
     }
   }
